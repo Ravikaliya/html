@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top 10 Languages - Light/Dark Mode</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      // ... other configurations
+    }
+
+    // Function to toggle between light and dark mode
+    function toggleTheme() {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        document.getElementById('themeIcon').className = 'fas fa-sun';
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        document.getElementById('themeIcon').className = 'fas fa-moon';
+      }
+    }
+
+    // Set initial theme
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // Set initial icon
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('themeIcon').className = document.documentElement.classList.contains('dark') ? 'fas fa-moon' : 'fas fa-sun';
+    });
+  </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+  <!-- Main container -->
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold">Top 10 Most Spoken Languages</h1>
+      <!-- Light/Dark mode toggle button with icon -->
+      <button 
+      onclick="toggleTheme()" 
+      class="bg-gray-300 dark:bg-gray-700 text-black dark:text-white p-2 rounded-full flex items-center">
+      <span id="themeIcon"></span>
+    </button>
+    </div>
+
+    <!-- Grid container -->
+    <div id="languageGrid" class="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Language cards will be injected here by JavaScript -->
+    </div>
+  </div>
+
+  <script>
+// Updated language list with correct country codes for flags
+const languages = [
+  { name: "English", speakers: "1.5 Billion", flag: "us", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/us.svg" },
+  { name: "Mandarin Chinese", speakers: "1.1 Billion", flag: "cn", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/cn.svg" },
+  { name: "Hindi", speakers: "700 Million", flag: "in", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/in.svg" },
+  { name: "Spanish", speakers: "600 Million", flag: "es", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/es.svg" },
+  { name: "Arabic", speakers: "450 Million", flag: "sa", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/sa.svg" },
+  { name: "Bengali", speakers: "270 Million", flag: "bd", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/bd.svg" },
+  { name: "Portuguese", speakers: "260 Million", flag: "pt", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/pt.svg" },
+  { name: "Russian", speakers: "160 Million", flag: "ru", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/ru.svg" },
+  { name: "Japanese", speakers: "130 Million", flag: "jp", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/jp.svg" },
+  { name: "Punjabi", speakers: "125 Million", flag: "in", flagUri: "https://cdn.jsdelivr.net/npm/flagpack@1.0.5/flags/4x3/in.svg" }
+];
+// Select the grid container
+const gridContainer = document.getElementById('languageGrid');
+
+// Function to generate language cards and inject them into the grid
+languages.forEach((language, index) => {
+  // Create a div for each language card
+  const languageCard = document.createElement('div');
+  languageCard.className = "bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 flex flex-col items-center";
+
+  // Add the flag and language name (h2)
+  const languageHeader = document.createElement('div');
+  languageHeader.className = "flex flex-col justify-center items-center gap-4 mb-2";
+  languageHeader.innerHTML = `
+    <img src="${language.flagUri}" alt="${language.name} flag" class="p-1  bg-black/10 dark:bg-white" />
+    <h2 class="text-xl font-semibold">${index + 1}. ${language.name}</h2>
+  `;
+  languageCard.appendChild(languageHeader);
+
+  // Add the speaker count (p)
+  const speakerCount = document.createElement('p');
+  speakerCount.className = "text-gray-600 dark:text-gray-400";
+  speakerCount.textContent = `Total Speakers: ${language.speakers}`;
+  languageCard.appendChild(speakerCount);
+
+  // Append the card to the grid
+  gridContainer.appendChild(languageCard);
+});
+  </script>
+
+</body>
+</html>
