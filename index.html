@@ -8,9 +8,29 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicon/2.14.0/devicon.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
   <style>
-    body{
+    body {
       height: 100vh;
+    }
+
+    .glass-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease;
+    }
+
+    .glass-button:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
   </style>
   <script>
@@ -58,7 +78,7 @@
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
   <div class="container mx-auto px-4 py-8">
     <div class="flex justify-between items-center mb-8">
-      <h1 class="text-3xl font-bold">Top 10 Most Spoken Languages</h1>
+      <h1 class="text-3xl font-bold">Top 10 Most Tech Languages</h1>
       <button onclick="toggleTheme()"
         class="bg-gray-300 dark:bg-gray-700 text-black dark:text-white p-2 rounded-full flex items-center">
         <span id="themeIcon"></span>
@@ -68,29 +88,32 @@
     </div>
   </div>
 
-    <!-- Modal HTML -->
-<div id="modal" onclick="hideModal()" class="fixed m-4 bg-white dark:bg-gray-800 rounded-lg overflow-hidden relative hidden z-50">
+  <!-- Modal HTML -->
+  <div id="modal" onclick="hideModal()"
+    class="fixed m-4 bg-white dark:bg-gray-800 rounded-lg overflow-hidden relative hidden z-50">
 
-  <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden relative p-4">
-    <button onclick="hideModal()" class="absolute -top-2 -right-2 bg-red-600 w-6 h-6 flex items-center justify-center rounded-full ">
-      <i class="fas fa-times"></i>
-    </button>
-    <iframe id="modalVideoFrame" class="w-full h-full rounded" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden relative p-4">
+      <button onclick="hideModal()"
+        class="absolute -top-2 -right-2 bg-red-600 w-6 h-6 flex items-center justify-center rounded-full ">
+        <i class="fas fa-times"></i>
+      </button>
+      <!-- <iframe id="modalVideoFrame" class="w-full h-full rounded" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe> -->
+    </div>
   </div>
-</div>
-    
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
     const items = [
-      { icon: 'devicon-html5-plain text-orange-500', logoName: 'HTML5', salary: '$60k', link: 'https://developer.mozilla.org/en-US/docs/Web/HTML', cheatSheet: 'https://htmlcheatsheet.com/', video: 'https://www.youtube.com/embed/YSYbRd5CPII?autoplay=1&mute=1&volume=0.2' },
-      { icon: 'devicon-css3-plain text-blue-500', logoName: 'CSS3', salary: '$55k', link: 'https://developer.mozilla.org/en-US/docs/Web/CSS', cheatSheet: 'https://htmlcheatsheet.com/css/', video: 'https://www.youtube.com/embed/hcMzwMrr1tE?autoplay=1&mute=1&volume=0.2' },
-      { icon: 'devicon-javascript-plain text-yellow-500', logoName: 'JavaScript', salary: '$70k', link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', cheatSheet: 'https://htmlcheatsheet.com/js/', video: 'https://www.youtube.com/embed/4yVh92irML4?autoplay=1&mute=1&volume=0.2' },
-      { icon: 'devicon-python-plain text-yellow-600', logoName: 'Python', salary: '$75k', link: 'https://www.python.org/doc/', cheatSheet: 'https://quickref.me/python', video: 'https://www.youtube.com/embed/YSYbRd5CPII?autoplay=1&mute=1&volume=0.2' },
-      { icon: 'devicon-cplusplus-plain text-blue-500', logoName: 'C++', salary: '$65k', link: 'https://isocpp.org/', cheatSheet: 'https://quickref.me/cpp', video: 'https://www.youtube.com/embed/hcMzwMrr1tE?autoplay=1&mute=1&volume=0.2' },
-      { icon: 'devicon-nextjs-plain text-black', logoName: 'Next.js', salary: '$85k', link: 'https://nextjs.org/docs', cheatSheet: 'https://nextjs.org/learn/basics/create-nextjs-app', video: 'https://www.youtube.com/embed/4yVh92irML4?autoplay=1&mute=1&volume=0.2' },
-      { icon: 'devicon-react-original text-blue-500', logoName: 'React Expo', salary: '$80k', link: 'https://docs.expo.dev/', cheatSheet: 'https://devhints.io/react-native', video: 'https://www.youtube.com/embed/YSYbRd5CPII?autoplay=1&mute=1&volume=0.2' },
-      { icon: 'devicon-mongodb-plain text-green-600', logoName: 'MongoDB', salary: '$77k', link: 'https://docs.mongodb.com/', cheatSheet: 'https://cheatography.com/deeMoxy/cheat-sheets/mongodb/', video: 'https://www.youtube.com/embed/hcMzwMrr1tE?autoplay=1&mute=1&volume=0.2' },
-      { icon: 'devicon-redis-plain text-red-600', logoName: 'Redis', salary: '$72k', link: 'https://redis.io/documentation', cheatSheet: 'https://quickref.me/redis', video: 'https://www.youtube.com/embed/4yVh92irML4?autoplay=1&mute=1&volume=0.2' },
-      { icon: 'devicon-docker-plain text-blue-500', logoName: 'Docker', salary: '$90k', link: 'https://docs.docker.com/', cheatSheet: 'https://devhints.io/docker', video: 'https://www.youtube.com/embed/YSYbRd5CPII?autoplay=1&mute=1&volume=0.2' }
+      { id: 1, icon: 'devicon-html5-plain text-orange-500', logoName: 'HTML5', salary: '$60k', link: 'https://developer.mozilla.org/en-US/docs/Web/HTML', cheatSheet: 'https://htmlcheatsheet.com/', video: 'https://www.youtube.com/embed/videoseries?si=QLWkdWDXOmCF47oT&amp;list=PLafkKTUDps_7hlj7yRR0LP-fhwo_X-AYw' },
+      { id: 2, icon: 'devicon-css3-plain text-blue-500', logoName: 'CSS3', salary: '$55k', link: 'https://developer.mozilla.org/en-US/docs/Web/CSS', cheatSheet: 'https://htmlcheatsheet.com/css/', video: 'https://www.youtube.com/embed/latest-hindi-video-css' },
+      { id: 3, icon: 'devicon-javascript-plain text-yellow-500', logoName: 'JavaScript', salary: '$70k', link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', cheatSheet: 'https://htmlcheatsheet.com/js/', video: 'https://www.youtube.com/embed/latest-hindi-video-js' },
+      { id: 4, icon: 'devicon-nextjs-plain text-black', logoName: 'Next.js', salary: '$85k', link: 'https://nextjs.org/docs', cheatSheet: 'https://nextjs.org/learn/basics/create-nextjs-app', video: 'https://www.youtube.com/embed/latest-hindi-video-nextjs' },
+      { id: 5, icon: 'devicon-react-original text-blue-500', logoName: 'React Expo', salary: '$80k', link: 'https://docs.expo.dev/', cheatSheet: 'https://devhints.io/react-native', video: 'https://www.youtube.com/embed/latest-hindi-video-react' },
+      { id: 6, icon: 'devicon-mongodb-plain text-green-600', logoName: 'MongoDB', salary: '$77k', link: 'https://docs.mongodb.com/', cheatSheet: 'https://cheatography.com/deeMoxy/cheat-sheets/mongodb/', video: 'https://www.youtube.com/embed/rU9ZODw5yvU' },
+      { id: 7, icon: 'devicon-redis-plain text-red-600', logoName: 'Redis', salary: '$72k', link: 'https://redis.io/documentation', cheatSheet: 'https://quickref.me/redis', video: 'https://www.youtube.com/embed/latest-hindi-video-redis' },
+      { id: 8, icon: 'devicon-docker-plain text-blue-500', logoName: 'Docker', salary: '$90k', link: 'https://docs.docker.com/', cheatSheet: 'https://devhints.io/docker', video: 'https://www.youtube.com/embed/latest-hindi-video-docker' },
+      { id: 9, icon: 'devicon-python-plain text-yellow-600', logoName: 'Python', salary: '$75k', link: 'https://www.python.org/doc/', cheatSheet: 'https://quickref.me/python', video: 'https://www.youtube.com/embed/latest-hindi-video-python' },
     ];
     const grid = document.getElementById('techlanguageGrid');
     grid.innerHTML = items.map(item => `
@@ -102,13 +125,30 @@
       <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100">${item.logoName}</h2>
       <p class="text-sm text-gray-700 dark:text-gray-300">Salary: ${item.salary}</p>
       <div class="flex justify-between p-2 mt-3 shadow-lg items-center rounded-lg bg-gray-300 dark:bg-gray-900">
-        <a href="${item.link}" target="_blank" class="text-blue-500 dark:text-blue-300 underline"><i class="fa-solid fa-sitemap"></i></a>
-        <a href="${item.cheatSheet}" target="_blank" class="text-blue-500 dark:text-blue-300 underline"><i class="fa-solid fa-sheet-plastic"></i></a>
-        <i onclick="showVideo('${item.video}')" class="fa-solid fa-video cursor-pointer"></i>
+        <a href="${item.link}" target="_blank" class="glass-button "><i class="fa-solid fa-sitemap"></i></a>
+        <a href="${item.cheatSheet}" target="_blank" class="glass-button "><i class="fa-solid fa-sheet-plastic"></i></a>
+        <button id="alertButton-${item.id}" class="glass-button fa-solid fa-video cursor-pointer"></button>
       </div>
     </div>
   </div>`).join('');
+    items.forEach(item => {
+      document.getElementById(`alertButton-${item.id}`).addEventListener('click', function () {
+        Swal.fire({
+          title: `${item.logoName}`,
+          height: 800,
+          width0: 800,
+          position: 'bottom-end',
+          showConfirmButton: false,
+          html: `
+          <div class="flex flex-col items-center justify-center">
+<iframe src="${item.video}" class='w-full h-[300px]' title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+  `,
+        });
+      });
+    });
   </script>
+
 </body>
 
 </html>
